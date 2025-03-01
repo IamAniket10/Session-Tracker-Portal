@@ -1,17 +1,19 @@
-import { useLocation } from "react-router-dom";
+'use client';
+
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-const NotFound = () => {
-  const location = useLocation();
+export default function NotFound() {
+  const pathname = usePathname();
 
   useEffect(() => {
     console.error(
       "404 Error: User attempted to access non-existent route:",
-      location.pathname
+      pathname
     );
-  }, [location.pathname]);
+  }, [pathname]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground transition-colors duration-300">
@@ -29,6 +31,4 @@ const NotFound = () => {
       </div>
     </div>
   );
-};
-
-export default NotFound;
+}
