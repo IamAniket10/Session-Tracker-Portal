@@ -5,11 +5,12 @@ import { useAuth } from '@/context/authContext';
 import EditableCell from './editable-cell';
 import { Button } from '@/components/ui/button';
 import { PlusCircle } from 'lucide-react';
+import { UserDetail } from '@/types';
 
 interface SessionDetailsProps {
   sessionId: string;
-  userDetails?: any,
-  isAdmin?: boolean;
+  userDetails: UserDetail;
+  isAdmin: boolean;
 }
 
 export default function SessionDetails({ sessionId, userDetails }: SessionDetailsProps) {
@@ -18,7 +19,7 @@ export default function SessionDetails({ sessionId, userDetails }: SessionDetail
   const [error, setError] = useState("");
   const { token } = useAuth();
 
-  const handleUpdate = async (field: string, value: string | number) => {
+  const handleUpdate = async (field: string, value: string | number | string[]) => {
     setLoading(true);
     setError("");
     

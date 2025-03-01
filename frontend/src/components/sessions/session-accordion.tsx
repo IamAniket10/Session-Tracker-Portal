@@ -8,11 +8,11 @@ import Link from 'next/link';
 import SessionOverview from './session-overview';
 import SessionDetails from './session-details';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Session } from '@/types';
+import { Session, SessionDetail, UserDetail } from '@/types';
 
-interface SessionDetail {
-  session: any;
-  userDetails: any;
+interface SessionDetailData {
+  session: SessionDetail;
+  userDetails: UserDetail;
 }
 
 interface SessionAccordionProps {
@@ -25,7 +25,7 @@ export default function SessionAccordion({ onSelectSession, currentSessionId }: 
   const [expandedSession, setExpandedSession] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const { token } = useAuth();
-  const [sessionDetails, setSessionDetails] = useState<Record<string, SessionDetail>>({});
+  const [sessionDetails, setSessionDetails] = useState<Record<string, SessionDetailData>>({});
   const [animatingSessionId, setAnimatingSessionId] = useState<string | null>(null);
 
   const accordionRefs = useRef<Record<string, HTMLDivElement | null>>({});

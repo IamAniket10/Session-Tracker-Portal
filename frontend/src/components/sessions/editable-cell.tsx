@@ -6,8 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Edit, Save, X } from 'lucide-react';
 
 interface EditableCellProps {
-    value: string | number;
-    onSave: (fieldName: string, value: string | number) => void;
+    value: string | number | string[];
+    onSave: (fieldName: string, value: string | number | string[]) => void;
     fieldName: string;
 }
 

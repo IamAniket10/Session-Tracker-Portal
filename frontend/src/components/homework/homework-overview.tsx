@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, Clock, AlertTriangle } from 'lucide-react';
 
+
 interface Session {
   _id: string;
   sessionNumber: number;

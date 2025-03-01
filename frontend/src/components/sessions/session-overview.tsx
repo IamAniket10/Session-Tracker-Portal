@@ -1,7 +1,9 @@
 'use client';
 
+import { SessionDetail } from '@/types';
+
 interface SessionOverviewProps {
-    session: any;
+    session: SessionDetail;
     isAdmin?: boolean;
   }
 

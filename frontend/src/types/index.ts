@@ -38,3 +38,21 @@ export interface Notification {
 export interface ErrorResponse {
     message: string;
 }
+
+export interface SessionDetail {
+    sessionNumber: number;
+    sessionDate: string;
+    sessionTime: string;
+    weeklyEndDate: string;
+    activityCovered?: string[];
+  }
+  
+  export interface UserDetail {
+    sessionInsights?: string[];
+    weekAchievement?: string[];
+    decision?: string[];
+    totalProfit?: number;
+    invoiceProfit?: number;
+    futureProfit?: number;
+    costReductionProfit?: number;
+  }
