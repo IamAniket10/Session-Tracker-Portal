@@ -25,8 +25,7 @@ import { useAuth } from '@/context/authContext';
 import HomeworkOverview from '@/components/homework/homework-overview';
 import HomeworkTasks from '@/components/homework/homework-tasks';
 import HomeworkPageWrapper from '@/components/homework/homework-page-wrapper';
-// Remove the unused Router import
-// import { Router } from 'react-router-dom';
+
 
 export default function HomeworkPage() {
     const { user, token } = useAuth();

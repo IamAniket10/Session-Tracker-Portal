@@ -94,7 +94,7 @@ export default function EditHomeworkPage() {
         };
 
         fetchData();
-    }, [user, id, router]);
+    }, []);
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;

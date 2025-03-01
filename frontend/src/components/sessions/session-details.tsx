@@ -6,7 +6,7 @@ import EditableCell from './editable-cell';
 import { Button } from '@/components/ui/button';
 import { PlusCircle } from 'lucide-react';
 
-export default function SessionDetails({ sessionId, userDetails, isAdmin }) {
+export default function SessionDetails({ sessionId, userDetails }) {
   const [details, setDetails] = useState(userDetails || {});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");

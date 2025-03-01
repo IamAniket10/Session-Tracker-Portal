@@ -18,7 +18,7 @@ const NotFound = () => {
         <h1 className="text-9xl font-bold text-brand-600 dark:text-brand-500 mb-4">404</h1>
         <p className="text-2xl font-semibold mb-6">Oops! Page not found</p>
         <p className="text-gray-600 dark:text-gray-400 mb-8">
-          We couldn't find the page you're looking for. It might have been moved or doesn't exist.
+          We couldn&apos;t find the page you&apos;re looking for. It might have been moved or doesn&apos;t exist.
         </p>
         <a href="/">
           <Button className="bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-600 text-white">

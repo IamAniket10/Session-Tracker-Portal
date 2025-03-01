@@ -5,7 +5,6 @@ import { motion, useScroll, useInView, useAnimation } from 'framer-motion';
 import { useTheme } from '@/components/theme-provider';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import {
   BookOpen,
   Calendar,
@@ -25,7 +24,7 @@ export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const { scrollYProgress } = useScroll();
   const controls = useAnimation();
-  const { theme } = useTheme();
+  //const { theme } = useTheme();
 
   const heroRef = useRef(null);
   const featuresRef = useRef(null);

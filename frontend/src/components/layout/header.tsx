@@ -13,7 +13,7 @@ import { ChevronDown, LogOut, User, Settings, BookOpen, Brain } from 'lucide-rea
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ThemeToggle } from '@/components/theme-toggle';
-import { motion } from 'framer-motion';
+//import { motion } from 'framer-motion';
 
 export default function Header() {
     const { user, logout } = useAuth();

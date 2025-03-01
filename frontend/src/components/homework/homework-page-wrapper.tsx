@@ -7,9 +7,7 @@ interface HomeworkPageWrapperProps {
 }
 
 export default function HomeworkPageWrapper({ 
-  children,
-  title,
-  showThemeToggle = false
+  children = false
 }: HomeworkPageWrapperProps) {
   return (
     <div>

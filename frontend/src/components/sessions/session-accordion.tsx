@@ -15,7 +15,7 @@ export default function SessionAccordion({ onSelectSession, currentSessionId }) 
   const [expandedSession, setExpandedSession] = useState(null);
   const [loading, setLoading] = useState(true);
   const { token } = useAuth();
-  const router = useRouter();
+  //const router = useRouter();
   const [sessionDetails, setSessionDetails] = useState({});
   const [animatingSessionId, setAnimatingSessionId] = useState(null);
   
