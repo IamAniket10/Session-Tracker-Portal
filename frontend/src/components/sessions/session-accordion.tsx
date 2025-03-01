@@ -29,6 +29,7 @@ export default function SessionAccordion({ onSelectSession, currentSessionId }: 
   const [animatingSessionId, setAnimatingSessionId] = useState<string | null>(null);
 
   const accordionRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
   useEffect(() => {
     if (currentSessionId) {
@@ -39,7 +40,7 @@ export default function SessionAccordion({ onSelectSession, currentSessionId }: 
       if (!token) return;
 
       try {
-        const response = await fetch('/api/sessions', {
+        const response = await fetch(`${API_BASE_URL}/api/sessions`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
