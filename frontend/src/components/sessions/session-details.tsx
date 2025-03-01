@@ -18,13 +18,14 @@ export default function SessionDetails({ sessionId, userDetails }: SessionDetail
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const { token } = useAuth();
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
   const handleUpdate = async (field: string, value: string | number | string[]) => {
     setLoading(true);
     setError("");
     
     try {
-      const response = await fetch(`/api/sessions/${sessionId}/details`, {
+      const response = await fetch(`${API_BASE_URL}/api/sessions/${sessionId}/details`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
