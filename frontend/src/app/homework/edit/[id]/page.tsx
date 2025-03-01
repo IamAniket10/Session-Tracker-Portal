@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { toast } from 'react-hot-toast';
 import { useAuth } from '@/context/authContext';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -19,14 +19,15 @@ import { ArrowLeft, CalendarIcon, Clock } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import HomeworkPageWrapper from '@/components/homework/homework-page-wrapper';
 import { useParams, useRouter } from 'next/navigation';
+import { Session, ErrorResponse } from '@/types/index';
 
 export default function EditHomeworkPage() {
     const { user, token } = useAuth();
     const router = useRouter();
-    const params = useParams();
+    const params = useParams() as Record<string, string>;
     const { id } = params;
 
-    console.log("Homework ID:", id); 
+    console.log("Homework ID:", id);
 
     const [sessions, setSessions] = useState([]);
     const [formData, setFormData] = useState({
@@ -55,8 +56,8 @@ export default function EditHomeworkPage() {
         const fetchData = async () => {
             try {
 
-                console.log("Fetching homework with ID:", id);
-                console.log("Using token:", token.substring(0, 10) + "...");
+                // console.log("Fetching homework with ID:", id);
+                // console.log("Using token:", token.substring(0, 10) + "...");
 
                 // Fetch homework task details
                 const { data: taskData } = await axios.get(
@@ -96,7 +97,7 @@ export default function EditHomeworkPage() {
         fetchData();
     }, [API_BASE_URL, token]);
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, checked } = e.target;
         setFormData(prev => ({
             ...prev,
@@ -104,14 +105,14 @@ export default function EditHomeworkPage() {
         }));
     };
 
-    const handleValueChange = (name, value) => {
+    const handleValueChange = (name: string, value: string | boolean) => {
         setFormData(prev => ({
             ...prev,
             [name]: value
         }));
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setSubmitting(true);
 
@@ -129,8 +130,9 @@ export default function EditHomeworkPage() {
             toast.success('Homework task updated successfully');
             router.push('/homework');
         } catch (error) {
-            console.error('Error updating homework task:', error);
-            toast.error(error.response?.data?.message || 'Failed to update homework task');
+            const err = error as AxiosError<ErrorResponse>;
+            console.error('Error updating homework task:', err);
+            toast.error(err.response?.data?.message || 'Failed to update homework task');
             setSubmitting(false);
         }
     };
@@ -189,7 +191,7 @@ export default function EditHomeworkPage() {
                                         <SelectValue placeholder="Select a session" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        {sessions.map((session) => (
+                                        {sessions.map((session: Session) => (
                                             <SelectItem key={session._id} value={session._id}>
                                                 Session {session.sessionNumber} ({new Date(session.sessionDate).toLocaleDateString()})
                                             </SelectItem>
@@ -303,7 +305,7 @@ export default function EditHomeworkPage() {
                                     id="isImposed"
                                     name="isImposed"
                                     checked={formData.isImposed}
-                                    onCheckedChange={(checked) => 
+                                    onCheckedChange={(checked) =>
                                         handleValueChange('isImposed', checked)
                                     }
                                 />

@@ -1,14 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { useAuth } from '@/context/authContext';
 import { toast } from 'react-hot-toast';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { 
+import {
     Select,
     SelectContent,
     SelectItem,
@@ -19,12 +19,13 @@ import { ArrowLeft, CalendarIcon, Clock } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import HomeworkPageWrapper from '@/components/homework/homework-page-wrapper';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Session, ErrorResponse } from '@/types/index';
 
 export default function AddHomeworkPage() {
     const { user, token } = useAuth();
     const router = useRouter();
     const searchParams = useSearchParams();
-    
+
     const [sessions, setSessions] = useState([]);
     const [formData, setFormData] = useState({
         title: '',
@@ -73,7 +74,7 @@ export default function AddHomeworkPage() {
         fetchSessions();
     }, [API_BASE_URL, router, token]);
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, checked } = e.target;
         setFormData(prev => ({
             ...prev,
@@ -81,14 +82,14 @@ export default function AddHomeworkPage() {
         }));
     };
 
-    const handleValueChange = (name, value) => {
+    const handleValueChange = (name: string, value: string | boolean) => {
         setFormData(prev => ({
             ...prev,
             [name]: value
         }));
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
 
@@ -106,8 +107,9 @@ export default function AddHomeworkPage() {
             toast.success('Homework task added successfully');
             router.push('/homework');
         } catch (error) {
-            console.error('Error adding homework task:', error);
-            toast.error(error.response?.data?.message || 'Failed to add homework task');
+            const err = error as AxiosError<ErrorResponse>;
+            console.error('Error adding homework task:', err);
+            toast.error(err.response?.data?.message || 'Failed to add homework task');
             setLoading(false);
         }
     };
@@ -156,7 +158,7 @@ export default function AddHomeworkPage() {
                                         <SelectValue placeholder="Select a session" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        {sessions.map((session) => (
+                                        {sessions.map((session: Session) => (
                                             <SelectItem key={session._id} value={session._id}>
                                                 Session {session.sessionNumber} ({new Date(session.sessionDate).toLocaleDateString()})
                                             </SelectItem>
@@ -270,7 +272,7 @@ export default function AddHomeworkPage() {
                                     id="isImposed"
                                     name="isImposed"
                                     checked={formData.isImposed}
-                                    onCheckedChange={(checked) => 
+                                    onCheckedChange={(checked) =>
                                         handleValueChange('isImposed', checked)
                                     }
                                 />
@@ -287,7 +289,7 @@ export default function AddHomeworkPage() {
                 <CardFooter className="flex justify-end space-x-2 bg-purple-50/50 dark:bg-purple-950/20 border-t border-purple-100 dark:border-purple-900/50 p-4">
                     <Button
                         variant="outline"
-                        onClick={() => {router.push(-1)}}
+                        onClick={() => { router.back() }}
                         disabled={loading}
                     >
                         Cancel

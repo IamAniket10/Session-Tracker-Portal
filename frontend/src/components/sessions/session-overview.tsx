@@ -1,8 +1,11 @@
 'use client';
 
-//import { Card, CardContent } from "@/components/ui/card";
+interface SessionOverviewProps {
+    session: any;
+    isAdmin?: boolean;
+  }
 
-export default function SessionOverview({ session }) {
+export default function SessionOverview({ session }: SessionOverviewProps) {
     if (!session) return null;
 
     return (
@@ -32,7 +35,7 @@ export default function SessionOverview({ session }) {
             <div className="space-y-1">
                 <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Activity Covered</h3>
                 <ul className="list-disc pl-5 space-y-1 text-gray-900 dark:text-gray-100">
-                    {session.activityCovered && session.activityCovered.map((activity, index) => (
+                    {session.activityCovered && session.activityCovered.map((activity: string, index: number) => (
                         <li key={index}>{activity}</li>
                     ))}
                 </ul>

@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import MainLayout from '@/components/layout/main-layout';
 
-export default function HomeworkLayout({ children }) {
+export default function HomeworkLayout({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, isLoading } = useAuth();
   const router = useRouter();
 

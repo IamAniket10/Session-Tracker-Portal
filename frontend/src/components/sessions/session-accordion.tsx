@@ -2,40 +2,49 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/context/authContext';
-//import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ChevronDown, BookOpen } from 'lucide-react';
 import Link from 'next/link';
 import SessionOverview from './session-overview';
 import SessionDetails from './session-details';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Session } from '@/types';
 
-export default function SessionAccordion({ onSelectSession, currentSessionId }) {
-  const [sessions, setSessions] = useState([]);
-  const [expandedSession, setExpandedSession] = useState(null);
-  const [loading, setLoading] = useState(true);
+interface SessionDetail {
+  session: any;
+  userDetails: any;
+}
+
+interface SessionAccordionProps {
+  onSelectSession?: (sessionId: string) => void;
+  currentSessionId?: string | null;
+}
+
+export default function SessionAccordion({ onSelectSession, currentSessionId }: SessionAccordionProps) {
+  const [sessions, setSessions] = useState<Session[]>([]);
+  const [expandedSession, setExpandedSession] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
   const { token } = useAuth();
-  //const router = useRouter();
-  const [sessionDetails, setSessionDetails] = useState({});
-  const [animatingSessionId, setAnimatingSessionId] = useState(null);
-  
-  const accordionRefs = useRef({});
+  const [sessionDetails, setSessionDetails] = useState<Record<string, SessionDetail>>({});
+  const [animatingSessionId, setAnimatingSessionId] = useState<string | null>(null);
+
+  const accordionRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   useEffect(() => {
     if (currentSessionId) {
       setExpandedSession(currentSessionId);
     }
-    
+
     const fetchSessions = async () => {
       if (!token) return;
-      
+
       try {
         const response = await fetch('/api/sessions', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
         });
-        
+
         if (response.ok) {
           const data = await response.json();
           setSessions(data);
@@ -50,42 +59,42 @@ export default function SessionAccordion({ onSelectSession, currentSessionId }) 
     fetchSessions();
   }, [token, currentSessionId]);
 
-  const toggleSession = async (sessionId) => {
+  const toggleSession = async (sessionId: string) => {
     // Set animating state to show loading spinner or visual feedback
     setAnimatingSessionId(sessionId);
-    
+
     if (expandedSession === sessionId) {
       setExpandedSession(null);
     } else {
       setExpandedSession(sessionId);
-      
+
       // Fetch session details if needed
       if (!sessionDetails[sessionId]) {
         await fetchSessionDetails(sessionId);
       }
-      
+
       if (onSelectSession) {
         onSelectSession(sessionId);
       }
-      
+
       // Smooth scroll to the accordion item
       if (accordionRefs.current[sessionId]) {
-        accordionRefs.current[sessionId].scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'start' 
+        accordionRefs.current[sessionId].scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
         });
       }
     }
-    
+
     // Remove animating state after a short delay
     setTimeout(() => {
       setAnimatingSessionId(null);
     }, 300);
   };
 
-  const fetchSessionDetails = async (sessionId) => {
+  const fetchSessionDetails = async (sessionId: string) => {
     if (!token) return;
-    
+
     try {
       // Fetch session overview
       const sessionRes = await fetch(`/api/sessions/${sessionId}`, {
@@ -93,18 +102,18 @@ export default function SessionAccordion({ onSelectSession, currentSessionId }) 
           'Authorization': `Bearer ${token}`
         }
       });
-      
+
       // Fetch user details
       const detailsRes = await fetch(`/api/sessions/${sessionId}/details`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
-      
+
       if (sessionRes.ok && detailsRes.ok) {
         const sessionData = await sessionRes.json();
         const detailsData = await detailsRes.json();
-        
+
         setSessionDetails(prev => ({
           ...prev,
           [sessionId]: {
@@ -129,47 +138,47 @@ export default function SessionAccordion({ onSelectSession, currentSessionId }) 
   return (
     <div className="divide-y divide-gray-200 dark:divide-gray-700">
       {sessions.map((session) => (
-        <div 
-          key={session._id} 
+        <div
+          key={session._id}
           className="py-2"
-          ref={el => accordionRefs.current[session._id] = el}
+          ref={(el) => { accordionRefs.current[session._id] = el }}
         >
-          <div 
+          <div
             className={`flex justify-between items-center py-3 px-4 rounded-lg cursor-pointer transition-colors duration-200 
-                      ${expandedSession === session._id ? 
-                        'bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300' : 
-                        'hover:bg-gray-50 dark:hover:bg-gray-800/50'} 
+                      ${expandedSession === session._id ?
+                'bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300' :
+                'hover:bg-gray-50 dark:hover:bg-gray-800/50'} 
                       ${animatingSessionId === session._id ? 'bg-brand-100 dark:bg-brand-900/40' : ''}`}
             onClick={() => toggleSession(session._id)}
           >
             <div className="font-medium flex items-center">
               <div className={`w-8 h-8 rounded-full mr-3 flex items-center justify-center 
-                            ${expandedSession === session._id ? 
-                              'bg-brand-200 text-brand-800 dark:bg-brand-800 dark:text-brand-200' : 
-                              'bg-gray-200 dark:bg-gray-700 dark:text-gray-300'}`}>
+                            ${expandedSession === session._id ?
+                  'bg-brand-200 text-brand-800 dark:bg-brand-800 dark:text-brand-200' :
+                  'bg-gray-200 dark:bg-gray-700 dark:text-gray-300'}`}>
                 {session.sessionNumber}
               </div>
               <span>
-                Session {session.sessionNumber} 
+                Session {session.sessionNumber}
                 <span className="ml-2 text-sm text-gray-500 dark:text-gray-400">
                   ({new Date(session.sessionDate).toLocaleDateString()})
                 </span>
               </span>
             </div>
-            
+
             <div className="flex items-center">
               {animatingSessionId === session._id && (
                 <div className="animate-spin h-4 w-4 border-2 border-brand-500 rounded-full mr-2"></div>
               )}
-              <ChevronDown 
+              <ChevronDown
                 className={`h-5 w-5 transition-transform duration-300 ease-in-out 
-                           ${expandedSession === session._id ? 
-                            'transform rotate-180 text-brand-600 dark:text-brand-400' : 
-                            'text-gray-400 dark:text-gray-500'}`} 
+                           ${expandedSession === session._id ?
+                    'transform rotate-180 text-brand-600 dark:text-brand-400' :
+                    'text-gray-400 dark:text-gray-500'}`}
               />
             </div>
           </div>
-          
+
           <AnimatePresence>
             {expandedSession === session._id && sessionDetails[session._id] && (
               <motion.div
@@ -181,43 +190,43 @@ export default function SessionAccordion({ onSelectSession, currentSessionId }) 
               >
                 <div className="mt-4 space-y-4 pl-6 pr-4 pb-4 border-l-2 border-brand-200 dark:border-brand-800">
                   {/* Session Overview */}
-                  <motion.div 
+                  <motion.div
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.1 }}
                     className="bg-white dark:bg-gray-800 p-5 rounded-md shadow-sm border border-gray-100 dark:border-gray-700"
                   >
                     <h3 className="font-semibold text-lg mb-3 text-gray-800 dark:text-gray-200">Session Overview</h3>
-                    <SessionOverview 
-                      session={sessionDetails[session._id].session} 
-                      isAdmin={false} 
+                    <SessionOverview
+                      session={sessionDetails[session._id].session}
+                      isAdmin={false}
                     />
                   </motion.div>
-                  
+
                   {/* Session Details */}
-                  <motion.div 
+                  <motion.div
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.2 }}
                     className="bg-white dark:bg-gray-800 p-5 rounded-md shadow-sm border border-gray-100 dark:border-gray-700"
                   >
                     <h3 className="font-semibold text-lg mb-3 text-gray-800 dark:text-gray-200">Session Details</h3>
-                    <SessionDetails 
+                    <SessionDetails
                       sessionId={session._id}
                       userDetails={sessionDetails[session._id].userDetails}
                       isAdmin={false}
                     />
-                    
+
                     {/* Homework Link */}
-                    <motion.div 
+                    <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.3 }}
                       className="mt-5 flex justify-end"
                     >
                       <Link href={`/homework?session=${session._id}`}>
-                        <Button 
-                          variant="outline" 
+                        <Button
+                          variant="outline"
                           className="flex items-center gap-2 transition-all duration-200 hover:bg-brand-100 hover:text-brand-700 hover:border-brand-300 dark:hover:bg-brand-900/40 dark:hover:text-brand-300"
                         >
                           <BookOpen className="h-4 w-4" />

@@ -4,9 +4,14 @@ import { useState } from "react";
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Edit, Save, X } from 'lucide-react';
-//import { cn } from "@/lib/utils";
 
-export default function EditableCell({ value, onSave, fieldName }) {
+interface EditableCellProps {
+    value: string | number;
+    onSave: (fieldName: string, value: string | number) => void;
+    fieldName: string;
+}
+
+export default function EditableCell({ value, onSave, fieldName }: EditableCellProps) {
     const [isEditing, setIsEditing] = useState(false);
     const [editValue, setEditValue] = useState(value);
 
@@ -47,13 +52,13 @@ export default function EditableCell({ value, onSave, fieldName }) {
         <td className="border p-2 dark:border-gray-700">
             <div className="flex items-center justify-between">
                 <span>{value}</span>
-                <Button 
-                    size="sm" 
-                    variant="ghost" 
-                    className="opacity-50 hover:opacity-100 text-brand-600 hover:text-brand-800 hover:bg-brand-100 dark:hover:bg-brand-900" 
+                <Button
+                    size="sm"
+                    variant="ghost"
+                    className="opacity-50 hover:opacity-100 text-brand-600 hover:text-brand-800 hover:bg-brand-100 dark:hover:bg-brand-900"
                     onClick={() => setIsEditing(true)}
                 >
-                    <Edit className="h-4 w-4"/>
+                    <Edit className="h-4 w-4" />
                 </Button>
             </div>
         </td>

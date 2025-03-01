@@ -25,16 +25,17 @@ import { useAuth } from '@/context/authContext';
 import HomeworkOverview from '@/components/homework/homework-overview';
 import HomeworkTasks from '@/components/homework/homework-tasks';
 import HomeworkPageWrapper from '@/components/homework/homework-page-wrapper';
+import { Session, HomeworkTask, Notification } from '@/types/index';
 
 
 export default function HomeworkPage() {
     const { user, token } = useAuth();
     const router = useRouter();
-    const [sessions, setSessions] = useState([]);
-    const [selectedSession, setSelectedSession] = useState(null);
-    const [homeworkTasks, setHomeworkTasks] = useState([]);
+    const [sessions, setSessions] = useState<Session[]>([]);
+    const [selectedSession, setSelectedSession] = useState<Session | null>(null);
+    const [homeworkTasks, setHomeworkTasks] = useState<HomeworkTask[]>([]);
+    const [notifications, setNotifications] = useState<Notification[]>([]);
     const [loading, setLoading] = useState(true);
-    const [notifications, setNotifications] = useState([]);
     const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
     useEffect(() => {
@@ -51,7 +52,7 @@ export default function HomeworkPage() {
                     },
                 });
                 setSessions(data);
-                
+
                 if (data.length > 0) {
                     setSelectedSession(data[0]);
                     fetchHomeworkTasks(data[0]._id);
@@ -74,30 +75,30 @@ export default function HomeworkPage() {
         if (homeworkTasks.length > 0) {
             const today = new Date();
             today.setHours(0, 0, 0, 0);
-            
-            const upcoming = homeworkTasks.filter(task => {
+
+            const upcoming = homeworkTasks.filter((task) => {
                 if (!task.dueDate) return false;
-                
+
                 const dueDate = new Date(task.dueDate);
                 dueDate.setHours(0, 0, 0, 0);
-                
+
                 // Tasks due today or in the next 2 days
-                const diffTime = dueDate - today;
+                const diffTime = dueDate.getTime() - today.getTime();
                 const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                
+
                 return diffDays >= 0 && diffDays <= 2 && task.status !== 'Done';
             }).map(task => ({
                 _id: task._id,
                 title: task.title,
                 message: `Due: ${new Date(task.dueDate).toLocaleDateString()}`,
-                daysLeft: Math.ceil((new Date(task.dueDate) - today) / (1000 * 60 * 60 * 24))
+                daysLeft: Math.ceil((new Date(task.dueDate).getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
             }));
-            
+
             setNotifications(upcoming);
         }
     }, [homeworkTasks]);
 
-    const fetchHomeworkTasks = async (sessionId) => {
+    const fetchHomeworkTasks = async (sessionId: string) => {
         setLoading(true);
         try {
             const { data } = await axios.get(`${API_BASE_URL}/api/homework/session/${sessionId}`, {
@@ -114,8 +115,8 @@ export default function HomeworkPage() {
         }
     };
 
-    const handleSessionChange = (sessionId) => {
-        const session = sessions.find(s => s._id === sessionId);
+    const handleSessionChange = (sessionId: string) => {
+        const session = sessions.find(s => s._id === sessionId) as Session;
         setSelectedSession(session);
         fetchHomeworkTasks(sessionId);
     };
@@ -124,7 +125,7 @@ export default function HomeworkPage() {
         router.push(`/homework/add?session=${selectedSession?._id || ''}`);
     };
 
-    const markNotificationAsRead = (notificationId) => {
+    const markNotificationAsRead = (notificationId: string) => {
         // Remove the notification from the state
         setNotifications(prev => prev.filter(n => n._id !== notificationId));
     };
@@ -158,9 +159,9 @@ export default function HomeworkPage() {
                                         <div className="flex justify-between w-full mt-1">
                                             <span className="text-sm text-muted-foreground">{notification.message}</span>
                                             <Badge variant={notification.daysLeft === 0 ? "destructive" : "outline"}>
-                                                {notification.daysLeft === 0 ? "Today" : 
-                                                notification.daysLeft === 1 ? "Tomorrow" : 
-                                                `${notification.daysLeft} days left`}
+                                                {notification.daysLeft === 0 ? "Today" :
+                                                    notification.daysLeft === 1 ? "Tomorrow" :
+                                                        `${notification.daysLeft} days left`}
                                             </Badge>
                                         </div>
                                     </DropdownMenuItem>

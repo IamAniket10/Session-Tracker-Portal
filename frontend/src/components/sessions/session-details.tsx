@@ -6,13 +6,19 @@ import EditableCell from './editable-cell';
 import { Button } from '@/components/ui/button';
 import { PlusCircle } from 'lucide-react';
 
-export default function SessionDetails({ sessionId, userDetails }) {
+interface SessionDetailsProps {
+  sessionId: string;
+  userDetails?: any,
+  isAdmin?: boolean;
+}
+
+export default function SessionDetails({ sessionId, userDetails }: SessionDetailsProps) {
   const [details, setDetails] = useState(userDetails || {});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const { token } = useAuth();
 
-  const handleUpdate = async (field, value) => {
+  const handleUpdate = async (field: string, value: string | number) => {
     setLoading(true);
     setError("");
     

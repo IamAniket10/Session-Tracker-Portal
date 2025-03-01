@@ -46,30 +46,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
 import { MoreHorizontal, Pencil, Trash2, RotateCcw, Check, X } from 'lucide-react';
+import { HomeworkTask, HomeworkTasksProps, EditFormData } from '@/types/index';
 
-interface HomeworkTask {
-  _id: string;
-  title: string;
-  status: 'To-Do' | 'In Progress' | 'Done';
-  dueDate: string;
-  startTime?: string;
-  endTime?: string;
-  fpr?: string;
-  dpRemark?: string;
-  penaltyReward?: string;
-  isImposed: boolean;
-  session: string;
-}
-
-interface EditFormData extends Partial<HomeworkTask> {
-  dueDate?: string;
-}
-
-interface HomeworkTasksProps {
-  tasks: HomeworkTask[];
-  loading: boolean;
-  onRefresh: () => void;
-}
 
 const getStatusColor = (status: string) => {
   switch (status) {

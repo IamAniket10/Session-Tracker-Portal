@@ -186,16 +186,16 @@ export default function Home() {
                   homework tracking, and progress monitoring.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <a href="/signup">
+                  <Link href="/signup">
                     <Button size="lg" className="bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-600 text-white">
                       Get Started <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
-                  </a>
-                  <a href="#features">
+                  </Link>
+                  <Link href="#features">
                     <Button size="lg" variant="outline" className="border-gray-300 dark:border-gray-700 dark:text-gray-300">
                       Learn More <ChevronDown className="ml-2 h-4 w-4" />
                     </Button>
-                  </a>
+                  </Link>
                 </div>
               </motion.div>
 
@@ -214,6 +214,7 @@ export default function Home() {
                     <Image
                       src="/dashboard.jpg"
                       alt="Platform Dashboard"
+                      priority={true}
                       width={500}
                       height={300}
                       className="w-full rounded-lg"
