@@ -58,7 +58,7 @@ export default function AddHomeworkPage() {
                 setSessions(data);
 
                 // Check for session parameter from URL
-                const sessionParam = searchParams.get('session');
+                const sessionParam = searchParams ? searchParams.get('session') : null;
                 if (sessionParam) {
                     setFormData(prev => ({ ...prev, session: sessionParam }));
                 } else if (data.length > 0) {
