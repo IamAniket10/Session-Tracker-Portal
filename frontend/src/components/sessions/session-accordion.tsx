@@ -98,14 +98,14 @@ export default function SessionAccordion({ onSelectSession, currentSessionId }: 
 
     try {
       // Fetch session overview
-      const sessionRes = await fetch(`/api/sessions/${sessionId}`, {
+      const sessionRes = await fetch(`${API_BASE_URL}/api/sessions/${sessionId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
 
       // Fetch user details
-      const detailsRes = await fetch(`/api/sessions/${sessionId}/details`, {
+      const detailsRes = await fetch(`${API_BASE_URL}/api/sessions/${sessionId}/details`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
