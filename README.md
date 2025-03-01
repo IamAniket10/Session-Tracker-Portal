@@ -125,7 +125,7 @@ The homework system allows tracking assignments and tasks linked to specific ses
 
 ## 🚀 Deployment
 - Frontend - Vercel
-- Backend - Railway
+- Backend - Render
 - Database - MongoDB Atlas
 
 ## 🏁 Getting Started
