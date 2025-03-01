@@ -2,11 +2,11 @@ const express = require('express')
 const router = express.Router();
 
 const {
-    getAllSessions,
-    getSessionById,
-    createSession,
-    updateSession,
-    deleteSession,
+  getAllSessions,
+  getSessionById,
+  createSession,
+  updateSession,
+  deleteSession,
   getSessionDetailsByUser,
   getAllSessionDetails,
   upsertSessionDetails
@@ -14,7 +14,7 @@ const {
 const { protect, admin } = require('../middleware/authMiddleware');
 
 // Session routes
-router.get('/', protect,  getAllSessions);
+router.get('/', protect, getAllSessions);
 router.get('/:id', protect, getSessionById);
 
 //session management (admin only)

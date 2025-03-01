@@ -30,22 +30,20 @@ export default function Header() {
                         <Brain className="h-8 w-8 text-brand-600 dark:text-brand-500" />
                         <span className="font-bold text-xl text-gray-900 dark:text-white">Mental Health Matters Inc.</span>
                     </Link>
-                    
+
                     {user && (
                         <nav className="hidden md:flex  items-center space-x-6">
-                            <Link 
-                                href="/sessions" 
-                                className={`text-gray-600 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-500 transition-colors ${
-                                    pathname && pathname.startsWith('/sessions') ? 'text-brand-600 dark:text-brand-500' : ''
-                                }`}
+                            <Link
+                                href="/sessions"
+                                className={`text-gray-600 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-500 transition-colors ${pathname && pathname.startsWith('/sessions') ? 'text-brand-600 dark:text-brand-500' : ''
+                                    }`}
                             >
                                 Sessions
                             </Link>
-                            <Link 
-                                href="/homework" 
-                                className={`text-gray-600 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-500 transition-colors flex  items-center gap-2 ${
-                                    pathname && pathname.startsWith('/homework') ? 'text-brand-600 dark:text-brand-500' : ''
-                                }`}
+                            <Link
+                                href="/homework"
+                                className={`text-gray-600 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-500 transition-colors flex  items-center gap-2 ${pathname && pathname.startsWith('/homework') ? 'text-brand-600 dark:text-brand-500' : ''
+                                    }`}
                             >
                                 <BookOpen className="h-4 w-4" />
                                 Homework
@@ -55,7 +53,7 @@ export default function Header() {
 
                     <div className="flex items-center gap-4">
                         <ThemeToggle />
-                        
+
                         {user ? (
                             <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
                                 <DropdownMenuTrigger asChild>

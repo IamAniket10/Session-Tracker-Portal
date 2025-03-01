@@ -21,15 +21,15 @@ router.post('/homework-reminders', protect, admin, createHomeworkReminders);
 
 // Test route to create a notification
 router.post('/test-notification', protect, asyncHandler(async (req, res) => {
-    const notification = await Notification.create({
-      user: req.user._id,
-      title: 'Test Notification',
-      message: 'This is a test notification for homework',
-      type: 'homework',
-      isRead: false
-    });
-    
-    res.status(201).json(notification);
-  }));
+  const notification = await Notification.create({
+    user: req.user._id,
+    title: 'Test Notification',
+    message: 'This is a test notification for homework',
+    type: 'homework',
+    isRead: false
+  });
+
+  res.status(201).json(notification);
+}));
 
 module.exports = router;

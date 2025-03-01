@@ -1,4 +1,3 @@
-// src/app/homework/layout.tsx
 'use client';
 
 import { useAuth } from '@/context/authContext';

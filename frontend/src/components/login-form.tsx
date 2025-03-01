@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label"
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/authContext";
+import Link from "next/link";
 
 export function LoginForm({
   className,
@@ -18,6 +19,7 @@ export function LoginForm({
   const [error, setError] = useState("");
   const router = useRouter();
   const { setAuthData } = useAuth();
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,7 +27,7 @@ export function LoginForm({
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/api/users/login', {
+      const response = await fetch(`${API_BASE_URL}/api/users/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -45,14 +47,6 @@ export function LoginForm({
           email: data.email,
           isAdmin: data.isAdmin
         }));
-
-        // Check if isAdmin is being correctly set
-        // console.log("User data being stored:", {
-        //   id: data._id,
-        //   name: data.name,
-        //   email: data.email,
-        //   isAdmin: data.isAdmin
-        // });
 
         // redirect based on user role
         if (data.isAdmin) {
@@ -106,12 +100,12 @@ export function LoginForm({
         <div className="grid gap-2">
           <div className="flex items-center">
             <Label htmlFor="password">Password</Label>
-            <a
+            <Link
               href="#"
               className="ml-auto text-sm underline-offset-4 hover:underline"
             >
               Forgot your password?
-            </a>
+            </Link>
           </div>
           <Input
             id="password"
@@ -152,9 +146,9 @@ export function LoginForm({
       </div>
       <div className="text-center text-sm">
         Don&apos;t have an account?{" "}
-        <a href="/signup" className="underline underline-offset-4">
+        <Link href="/signup" className="underline underline-offset-4">
           Sign up
-        </a>
+        </Link>
       </div>
     </form>
   )

@@ -2,12 +2,13 @@
 
 import { motion } from 'framer-motion';
 import Header from './header';
+import Link from 'next/link';
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-col min-h-screen bg-background dark:bg-black transition-colors duration-300">
       <Header />
-      <motion.main 
+      <motion.main
         className="flex-1 container mx-auto px-4 py-6"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -22,9 +23,9 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
               &copy; {new Date().getFullYear()} Mental Health Matters Inc. All rights reserved.
             </p>
             <div className="flex space-x-6">
-              <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-brand-500 dark:hover:text-brand-400 text-sm transition-colors">Privacy</a>
-              <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-brand-500 dark:hover:text-brand-400 text-sm transition-colors">Terms</a>
-              <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-brand-500 dark:hover:text-brand-400 text-sm transition-colors">Contact</a>
+              <Link href="#" className="text-gray-600 dark:text-gray-400 hover:text-brand-500 dark:hover:text-brand-400 text-sm transition-colors">Privacy</Link>
+              <Link href="#" className="text-gray-600 dark:text-gray-400 hover:text-brand-500 dark:hover:text-brand-400 text-sm transition-colors">Terms</Link>
+              <Link href="#" className="text-gray-600 dark:text-gray-400 hover:text-brand-500 dark:hover:text-brand-400 text-sm transition-colors">Contact</Link>
             </div>
           </div>
         </div>

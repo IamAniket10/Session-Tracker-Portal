@@ -69,7 +69,7 @@ export default function HomeworkPage() {
         fetchSessions();
     }, [user, token, router]);
 
-    // Instead of fetching notifications from API (which doesn't exist yet)
+    // Instead of fetching notifications from API 
     // Generate dummy notifications based on homework tasks
     useEffect(() => {
         if (homeworkTasks.length > 0) {

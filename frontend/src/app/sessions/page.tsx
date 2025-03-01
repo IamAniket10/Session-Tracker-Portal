@@ -1,8 +1,5 @@
-
-// src/app/sessions/page.tsx
 'use client';
 
-//import { useAuth } from '@/context/authContext';
 import ProtectedRoute from '@/components/auth/protectedRoute';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import SessionAccordion from '@/components/sessions/session-accordion';

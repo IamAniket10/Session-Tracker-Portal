@@ -136,4 +136,4 @@ module.exports = {
     updateHomework,
     deleteHomework,
     getAllHomeworkAdmin
-  };
+};
