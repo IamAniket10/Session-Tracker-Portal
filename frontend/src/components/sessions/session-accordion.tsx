@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/context/authContext';
-import { useRouter } from 'next/navigation';
+//import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ChevronDown, BookOpen } from 'lucide-react';
 import Link from 'next/link';

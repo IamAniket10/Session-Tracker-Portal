@@ -114,7 +114,7 @@ const HomeworkTasks: React.FC<HomeworkTasksProps> = ({ tasks, loading, onRefresh
     }));
   };
 
-  const handleSelectChange = (name: string, value: any) => {
+  const handleSelectChange = (name: string, value: string | boolean) => {
     setEditFormData(prev => ({
       ...prev,
       [name]: value

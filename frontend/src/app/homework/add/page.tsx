@@ -71,7 +71,7 @@ export default function AddHomeworkPage() {
         };
 
         fetchSessions();
-    }, []);
+    }, [API_BASE_URL, router, token]);
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;

@@ -94,7 +94,7 @@ export default function EditHomeworkPage() {
         };
 
         fetchData();
-    }, []);
+    }, [API_BASE_URL, token]);
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;

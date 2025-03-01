@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const NotFound = () => {
   const location = useLocation();
@@ -20,11 +21,11 @@ const NotFound = () => {
         <p className="text-gray-600 dark:text-gray-400 mb-8">
           We couldn&apos;t find the page you&apos;re looking for. It might have been moved or doesn&apos;t exist.
         </p>
-        <a href="/">
+        <Link href="/">
           <Button className="bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-600 text-white">
             Return to Home
           </Button>
-        </a>
+        </Link>
       </div>
     </div>
   );

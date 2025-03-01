@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { motion, useScroll, useInView, useAnimation } from 'framer-motion';
-import { useTheme } from '@/components/theme-provider';
+//import { useTheme } from '@/components/theme-provider';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { Button } from '@/components/ui/button';
 import {
@@ -19,6 +19,8 @@ import {
   Menu,
   X
 } from 'lucide-react';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
@@ -95,10 +97,10 @@ export default function Home() {
       <header className="sticky top-0 z-40 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 shadow-sm transition-all duration-300">
         <div className="container mx-auto px-4 py-3">
           <div className="flex justify-between items-center">
-            <a href="/" className="flex items-center space-x-2">
+            <Link href="/" className="flex items-center space-x-2">
               <Brain className="h-8 w-8 text-brand-600 dark:text-brand-500" />
               <span className="font-bold text-xl text-gray-900 dark:text-white">Mental Health Matters Inc.</span>
-            </a>
+            </Link>
 
             {/* Mobile menu button and theme toggle */}
             <div className="flex items-center gap-2 md:hidden">
@@ -209,9 +211,10 @@ export default function Home() {
                     whileHover={{ y: -5 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <img
-                      src="dashboard.jpg"
+                    <Image
+                      src="/dashboard.jpg"
                       alt="Platform Dashboard"
+                      fill
                       className="w-full rounded-lg"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
@@ -364,11 +367,11 @@ export default function Home() {
                     <span className="dark:text-gray-300">Set reminders and due dates for tasks</span>
                   </li>
                 </ul>
-                <a href="/sessions">
+                <Link href="/sessions">
                   <Button className="bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-600 text-white">
                     Explore Sessions <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
-                </a>
+                </Link>
               </motion.div>
 
               <motion.div
@@ -637,11 +640,11 @@ export default function Home() {
             <div>
               <h3 className="font-semibold text-lg mb-4">Platform</h3>
               <ul className="space-y-2">
-                <li><a href="#features" className="text-gray-400 hover:text-brand-500 transition-colors">Features</a></li>
-                <li><a href="/sessions" className="text-gray-400 hover:text-brand-500 transition-colors">Sessions</a></li>
-                <li><a href="/homework" className="text-gray-400 hover:text-brand-500 transition-colors">Homework</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-brand-500 transition-colors">Analytics</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-brand-500 transition-colors">Security</a></li>
+                <li><Link href="#features" className="text-gray-400 hover:text-brand-500 transition-colors">Features</Link></li>
+                <li><Link href="/sessions" className="text-gray-400 hover:text-brand-500 transition-colors">Sessions</Link></li>
+                <li><Link href="/homework" className="text-gray-400 hover:text-brand-500 transition-colors">Homework</Link></li>
+                <li><Link href="#" className="text-gray-400 hover:text-brand-500 transition-colors">Analytics</Link></li>
+                <li><Link href="#" className="text-gray-400 hover:text-brand-500 transition-colors">Security</Link></li>
               </ul>
             </div>
 
