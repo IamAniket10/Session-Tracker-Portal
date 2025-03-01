@@ -383,9 +383,11 @@ export default function Home() {
                 viewport={{ once: true }}
               >
                 <div className="relative rounded-xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700">
-                  <img
+                  <Image
                     src="/Session.png"
                     alt="Session Management Interface"
+                    width={500}
+                    height={300}
                     className="w-full"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end">
@@ -407,9 +409,11 @@ export default function Home() {
                 viewport={{ once: true }}
               >
                 <div className="relative rounded-xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700">
-                  <img
+                  <Image
                     src="/Homework.png"
                     alt="Homework Tracking Interface"
+                    width={500}
+                    height={300}
                     className="w-full"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end">
@@ -452,11 +456,11 @@ export default function Home() {
                     <span className="dark:text-gray-300">Monitor completion rates and progress</span>
                   </li>
                 </ul>
-                <a href="/homework">
+                <Link href="/homework">
                   <Button className="bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-600 text-white">
                     Explore Homework <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
-                </a>
+                </Link>
               </motion.div>
             </div>
           </div>
@@ -493,7 +497,7 @@ export default function Home() {
                       <span key={star} className="text-2xl">★</span>
                     ))}
                   </div>
-                  <p className="text-gray-600 dark:text-gray-300 mb-6 italic">"{testimonial.quote}"</p>
+                  <p className="text-gray-600 dark:text-gray-300 mb-6 italic">&quot;{testimonial.quote}&quot;</p>
                   <div className="flex items-center">
                     <div className="bg-brand-100 dark:bg-brand-900 rounded-full w-12 h-12 flex items-center justify-center mr-3">
                       <span className="text-brand-600 dark:text-brand-400 font-bold">{testimonial.author.charAt(0)}</span>
@@ -556,9 +560,11 @@ export default function Home() {
                 viewport={{ once: true }}
               >
                 <div className="relative">
-                  <img
+                  <Image
                     src="/team.jpg"
                     alt="Our Team"
+                    width={500}
+                    height={300}
                     className="w-full rounded-xl shadow-lg"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent rounded-xl"></div>

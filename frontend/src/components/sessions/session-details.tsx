@@ -32,7 +32,7 @@ export default function SessionDetails({ sessionId, userDetails }) {
       } else {
         setError('Failed to update');
       }
-    } catch (error) {
+    } catch  {
       setError('An error occurred');
     } finally {
       setLoading(false);

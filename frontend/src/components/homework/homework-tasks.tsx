@@ -177,7 +177,7 @@ const HomeworkTasks: React.FC<HomeworkTasksProps> = ({ tasks, loading, onRefresh
       const hour12 = hour % 12 || 12;
       
       return `${hour12}:${minutes} ${ampm}`;
-    } catch (error) {
+    } catch {
       return time;
     }
   };

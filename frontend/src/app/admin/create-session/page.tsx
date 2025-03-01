@@ -56,7 +56,7 @@ export default function CreateSessionPage() {
       } else {
         setMessage(`Error: ${data.message || 'Failed to create session'}`);
       }
-    } catch (error) {
+    } catch {
       setMessage("An error occured");
     } finally {
       setLoading(false);
