@@ -123,10 +123,12 @@ The homework system allows tracking assignments and tasks linked to specific ses
 - `POST /api/notifications/homework-reminders` - Create reminder for homework tasks
 - `PUT /api/notifications/:homeworkId/read` - Mark notifications as read
 
-## 🚀 Deployment
-- Frontend - Vercel
-- Backend - Render
-- Database - MongoDB Atlas
+## Deployment 🚀
+### The project is deployed using:
+
+- ▲ Frontend: Vercel
+- 🌐 Backend: Render
+- 🍃 Database: MongoDB Atlas
 
 ## 🏁 Getting Started
 
@@ -159,6 +161,17 @@ npm run dev
 ```
 
 Access the application at http://localhost:3000
+
+## Test Credentials 🔑
+### Admin Account
+
+- 📧 Email: admin@gmail.com
+- 🔒 Password: admin123
+
+## User Account
+
+- 📧 Email: sasuke@gmail.com
+- 🔒 Password: sasuke123
 
 ## 🧑 Author
 This project is created by [Aniket Kadam](https://github.com/ImAniket10)
