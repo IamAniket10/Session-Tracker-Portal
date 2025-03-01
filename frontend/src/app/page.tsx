@@ -214,7 +214,8 @@ export default function Home() {
                     <Image
                       src="/dashboard.jpg"
                       alt="Platform Dashboard"
-                      fill
+                      width={500}
+                      height={300}
                       className="w-full rounded-lg"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
